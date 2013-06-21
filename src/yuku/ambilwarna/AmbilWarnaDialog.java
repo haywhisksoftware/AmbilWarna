@@ -1,11 +1,19 @@
 package yuku.ambilwarna;
 
-import android.app.*;
-import android.content.*;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
-import android.graphics.*;
-import android.view.*;
-import android.widget.*;
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class AmbilWarnaDialog {
 	public interface OnAmbilWarnaListener {
@@ -20,9 +28,11 @@ public class AmbilWarnaDialog {
 	final ImageView viewCursor;
 	final View viewOldColor;
 	final View viewNewColor;
+	final SeekBar viewAlpha;
 	final ImageView viewTarget;
 	final ViewGroup viewContainer;
 	final float[] currentColorHsv = new float[3];
+	int currentAlpha;
 
 	/**
 	 * create an AmbilWarnaDialog. call this only from OnCreateDialog() or from a background thread.
@@ -37,6 +47,7 @@ public class AmbilWarnaDialog {
 	public AmbilWarnaDialog(final Context context, int color, OnAmbilWarnaListener listener) {
 		this.listener = listener;
 		Color.colorToHSV(color, currentColorHsv);
+		currentAlpha = Color.alpha(color);
 
 		final View view = LayoutInflater.from(context).inflate(R.layout.ambilwarna_dialog, null);
 		viewHue = view.findViewById(R.id.ambilwarna_viewHue);
@@ -46,10 +57,12 @@ public class AmbilWarnaDialog {
 		viewNewColor = view.findViewById(R.id.ambilwarna_warnaBaru);
 		viewTarget = (ImageView) view.findViewById(R.id.ambilwarna_target);
 		viewContainer = (ViewGroup) view.findViewById(R.id.ambilwarna_viewContainer);
+		viewAlpha = (SeekBar)view.findViewById(R.id.ambilwarna_alpha);
 
 		viewSatVal.setHue(getHue());
 		viewOldColor.setBackgroundColor(color);
 		viewNewColor.setBackgroundColor(color);
+		viewAlpha.setProgress(currentAlpha);
 
 		viewHue.setOnTouchListener(new View.OnTouchListener() {
 			@Override public boolean onTouch(View v, MotionEvent event) {
@@ -128,6 +141,21 @@ public class AmbilWarnaDialog {
 			.create();
 		// kill all padding from the dialog window
 		dialog.setView(view, 0, 0, 0, 0);
+		
+		viewAlpha.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				currentAlpha = progress;
+				viewNewColor.setBackgroundColor(getColor());
+			}
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {	
+			}
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {	
+			}
+		});
 
 		// move cursor & target on first draw
 		ViewTreeObserver vto = view.getViewTreeObserver();
@@ -161,7 +189,7 @@ public class AmbilWarnaDialog {
 	}
 
 	private int getColor() {
-		return Color.HSVToColor(currentColorHsv);
+		return Color.HSVToColor(currentAlpha, currentColorHsv);
 	}
 
 	private float getHue() {

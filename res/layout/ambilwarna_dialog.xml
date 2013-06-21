@@ -73,6 +73,15 @@
                 android:layout_height="30dp"
                 android:background="#aaf" />
         </LinearLayout>
+        <SeekBar
+            android:id="@+id/ambilwarna_alpha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ambilwarna_state"
+            android:layout_centerHorizontal="true"
+            android:max="255"
+            android:progress="255" />
+
     </RelativeLayout>
 
 </FrameLayout>
