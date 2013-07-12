@@ -9,11 +9,12 @@
         android:id="@+id/ambilwarna_viewContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/ambilwarna_spacer"
         android:paddingLeft="@dimen/ambilwarna_spacer"
         android:paddingRight="@dimen/ambilwarna_spacer"
-        android:paddingTop="@dimen/ambilwarna_spacer" android:layout_gravity="center">
+        android:paddingTop="@dimen/ambilwarna_spacer" >
 
         <yuku.ambilwarna.AmbilWarnaKotak
             android:id="@+id/ambilwarna_viewSatBri"
@@ -54,11 +55,17 @@
             android:gravity="center"
             android:orientation="horizontal" >
 
-            <View
-                android:id="@+id/ambilwarna_warnaLama"
+            <FrameLayout
                 android:layout_width="60dp"
                 android:layout_height="30dp"
-                android:background="#faa" />
+                android:background="@drawable/color_transparent_bg" >
+
+                <View
+                    android:id="@+id/ambilwarna_warnaLama"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:background="#faa" />
+            </FrameLayout>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -67,12 +74,19 @@
                 android:paddingRight="@dimen/ambilwarna_spacer"
                 android:src="@drawable/ambilwarna_arrow_right" />
 
-            <View
-                android:id="@+id/ambilwarna_warnaBaru"
+            <FrameLayout
                 android:layout_width="60dp"
                 android:layout_height="30dp"
-                android:background="#aaf" />
+                android:background="@drawable/color_transparent_bg" >
+
+                <View
+                    android:id="@+id/ambilwarna_warnaBaru"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:background="#aaf" />
+            </FrameLayout>
         </LinearLayout>
+
         <SeekBar
             android:id="@+id/ambilwarna_alpha"
             android:layout_width="match_parent"
@@ -81,7 +95,6 @@
             android:layout_centerHorizontal="true"
             android:max="255"
             android:progress="255" />
-
     </RelativeLayout>
 
 </FrameLayout>
