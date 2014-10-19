@@ -94,7 +94,7 @@
         android:id="@+id/ambilwarna_alpha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ambilwarna_state"
+        android:layout_below="@id/ambilwarna_viewSatBri"
         android:layout_centerHorizontal="true"
         android:max="255"
         android:progress="255" />
