@@ -1,9 +1,9 @@
-Android Color Picker with Transparent Setting
+Android Color Picker with Transparency Setting
 
-It is basically a clone of [Android Color Picker](http://code.google.com/p/android-color-picker/), with a seekbar fo transparent setting.
+It is basically a clone of [Android Color Picker](http://code.google.com/p/android-color-picker/), with a seekbar for setting transparency.
 
 
-Below text is copied from the original project.
+The below text is copied from the original project.
 
 ------------------------------------------------------------------------------
 
